@@ -1,0 +1,14 @@
+com\santhoshproject\santhoshprojectdaoimpl\Registerdaoimpl.class
+com\santhoshproject\model\Register.class
+com\santhoshproject\AppConfig.class
+com\santhoshproject\santhoshprojectdaoimpl\categorydaoimpl.class
+com\santhoshproject\model\product.class
+com\santhoshproject\model\category.class
+com\santhoshproject\santhoshprojectbackend\App.class
+com\santhoshproject\dao\Registerdao.class
+com\santhoshproject\santhoshprojectdaoimpl\supplierdaoimpl.class
+com\santhoshproject\santhoshprojectdaoimpl\productdaoimpl.class
+com\santhoshproject\model\supplier.class
+com\santhoshproject\dao\categorydao.class
+com\santhoshproject\dao\supplierdao.class
+com\santhoshproject\dao\productdao.class
