@@ -11,7 +11,7 @@
 			"pagingType" : "full_numbers",
 			"lengthMenu" : [ [ 2, 5, 10, -1 ], [ 2, 5, 10, "All" ] ]
 		});
-	}); 
+	});
 </script>
 <style>
 .btn-glyphicon {
@@ -25,87 +25,89 @@
 	border-radius: 50px;
 }
 </style>
+<div style="margin-bottom: -15pt">
 <jsp:include page="header.jsp"></jsp:include>
+</div>
 <body style="background-color: white";>
-<c:if test="${check}">
-	<form:form modelAttribute="category" action="getcategory" method="post"
-		class="form-horizontal" style="color:black">
-		<fieldset>
-			<center>
-				<legend>
-					<a style="color: black";>ADMIN</a>
-				</legend>
-			</center>
-			<h3>CATEGORY</h3>
-			<br>
-			<div class="form-group">
-				<label class="col-md-4 control-label">CATEGORY NAME</label>
-				<div class="col-md-4">
-					<form:input id="add_date" name="add_date" placeholder="category"
-						class="form-control input-md" required="true" type="text"
-						path="name" />
+	<c:if test="${check}">
+		<form:form modelAttribute="category" action="getcategory"
+			method="post" class="form-horizontal" style="color:black">
+			<fieldset>
+				<center>
+					<legend>
+						<a style="color: black">ADMIN</a>
+					</legend>
+				</center>
+				<h3>CATEGORY</h3>
+				<br>
+				<div class="form-group">
+					<label class="col-md-4 control-label">CATEGORY NAME</label>
+					<div class="col-md-4">
+						<form:input id="add_date" name="add_date" placeholder="category"
+							class="form-control input-md" required="true" type="text"
+							path="name" />
+					</div>
 				</div>
-			</div>
-			<div class="form-group">
-				<label class="col-md-4 control-label">DESCRIPTION</label>
-				<div class="col-md-4">
-					<form:input id="add_date" name="add_date" placeholder="category"
-						class="form-control input-md" required="true" type="text"
-						path="description" />
+				<div class="form-group">
+					<label class="col-md-4 control-label">DESCRIPTION</label>
+					<div class="col-md-4">
+						<form:input id="add_date" name="add_date" placeholder="category"
+							class="form-control input-md" required="true" type="text"
+							path="description" />
+					</div>
 				</div>
-			</div>
-			<div class="form-group">
-				<label class="col-md-4 control-label" for=""></label>
-				<div class="col-md-4">
-					<button id="" name="" class="btn btn-primary">Submit</button>
+				<div class="form-group">
+					<label class="col-md-4 control-label" for=""></label>
+					<div class="col-md-4">
+						<button id="" name="" class="btn btn-primary">Submit</button>
+					</div>
 				</div>
-			</div>
-		</fieldset>
-	</form:form>
+			</fieldset>
+		</form:form>
 	</c:if>
 	<c:if test="${!check}">
-	<form:form modelAttribute="category" action="updcat" method="post"
-		class="form-horizontal" style="color:black">
-		<fieldset>
-			<center>
-				<legend>
-					<a style="color: black";>ADMIN</a>
-				</legend>
-			</center>
-			<h3>CATEGORY</h3>
-			<br>
-			<div class="form-group">
-				<label class="col-md-4 control-label"></label>
-				<div class="col-md-4">
-					<form:input id="add_date" name="add_date" placeholder="category"
-						class="form-control input-md" required="true" type="hidden"
-						path="id" />
+		<form:form modelAttribute="category" action="updcat" method="post"
+			class="form-horizontal" style="color:black">
+			<fieldset>
+				<center>
+					<legend>
+						<a style="color: black">ADMIN</a>
+					</legend>
+				</center>
+				<h3>CATEGORY</h3>
+				<br>
+				<div class="form-group">
+					<label class="col-md-4 control-label"></label>
+					<div class="col-md-4">
+						<form:input id="add_date" name="add_date" placeholder="category"
+							class="form-control input-md" required="true" type="hidden"
+							path="id" />
+					</div>
 				</div>
-			</div>
-			<div class="form-group">
-				<label class="col-md-4 control-label">CATEGORY NAME</label>
-				<div class="col-md-4">
-					<form:input id="add_date" name="add_date" placeholder="category"
-						class="form-control input-md" required="true" type="text"
-						path="name" />
+				<div class="form-group">
+					<label class="col-md-4 control-label">CATEGORY NAME</label>
+					<div class="col-md-4">
+						<form:input id="add_date" name="add_date" placeholder="category"
+							class="form-control input-md" required="true" type="text"
+							path="name" />
+					</div>
 				</div>
-			</div>
-			<div class="form-group">
-				<label class="col-md-4 control-label">DESCRIPTION</label>
-				<div class="col-md-4">
-					<form:input id="add_date" name="add_date" placeholder="category"
-						class="form-control input-md" required="true" type="text"
-						path="description" />
+				<div class="form-group">
+					<label class="col-md-4 control-label">DESCRIPTION</label>
+					<div class="col-md-4">
+						<form:input id="add_date" name="add_date" placeholder="category"
+							class="form-control input-md" required="true" type="text"
+							path="description" />
+					</div>
 				</div>
-			</div>
-			<div class="form-group">
-				<label class="col-md-4 control-label" for=""></label>
-				<div class="col-md-4">
-					<button id="" name="" class="btn btn-primary">Update</button>
+				<div class="form-group">
+					<label class="col-md-4 control-label" for=""></label>
+					<div class="col-md-4">
+						<button id="" name="" class="btn btn-primary">Update</button>
+					</div>
 				</div>
-			</div>
-		</fieldset>
-	</form:form>
+			</fieldset>
+		</form:form>
 	</c:if>
 	<div>
 		<div class="container">
@@ -129,8 +131,7 @@
 									<a class="btn icon-btn btn-success"
 										href="editcat?getcatid=${ci.getId()}"><span
 										class="glyphicon btn-glyphicon glyphicon-plus img-circle text-success"></span>Edit</a>
-									<a class="btn icon-btn btn-danger"
-										href="delcat/${ci.getId()}"><span
+									<a class="btn icon-btn btn-danger" href="delcat/${ci.getId()}"><span
 										class="glyphicon btn-glyphicon glyphicon-trash img-circle text-danger"></span>Delete</a>
 								</div></td>
 						</tr>
@@ -140,7 +141,7 @@
 		</div>
 	</div>
 </body>
-	<br>
-	<br>
-	<br>	
+<br>
+<br>
+<br>
 <jsp:include page="footer.jsp"></jsp:include>

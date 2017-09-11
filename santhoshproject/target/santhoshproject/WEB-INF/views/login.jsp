@@ -10,7 +10,9 @@ body {
 }
   </style>
   <body>
-  <jsp:include page="header.jsp"></jsp:include>
+  <div style="margin-bottom: -15pt">
+<jsp:include page="header.jsp"></jsp:include>
+</div>
   	<div class="container">
       <div class="row">
         <div class="col-xs-10 col-xs-offset-1 col-sm-6 col-sm-offset-3 col-md-5 col-md-offset-4 col-lg-4 col-lg-offset-4">
@@ -30,16 +32,15 @@ body {
                   <label for="email">Email</label>
                   <div class="input-group">
                     <div class="input-group-addon"><i class="glyphicon glyphicon-envelope"></i></div>
-                    <input autofocus required type="email" id="usename" class="form-control" placeholder="Your email" tabindex="1" name="userpassword">
+                    <input autofocus required type="email" id="mail" class="form-control" placeholder="Your email" tabindex="1" name="mail">
                   </div>
                 </div>
 
                 <div class="form-group">
                   <label for="password">Password</label>
-                  <a href="#forget-password" class="btn btn-xs btn-link" tabindex="4">Forget password?</a>
                   <div class="input-group">
                     <div class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></div>
-                    <input required type="password" class="form-control" placeholder="Your password" tabindex="2" id="usename" name="userpassword">
+                    <input required type="password" class="form-control" placeholder="Your password" tabindex="2" id="upass" name="upass">
                   </div>
                 </div>
                 
@@ -54,9 +55,9 @@ body {
                 <a href="signup" class="btn btn-block btn-success" tabindex="5">Create account</a>
               </form>
             </div>
-          </div><!--.panel-->
-        </div><!--.cols-->
-      </div><!--.row-->
-    </div><!--.container-->
+          </div>
+        </div>
+      </div>
+    </div>
   </body>
   <jsp:include page="footer.jsp"></jsp:include>

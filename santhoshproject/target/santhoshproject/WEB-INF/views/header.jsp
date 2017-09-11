@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <title>Bootstrap Example</title>
   <link rel="shortct icon" href="resources/images/icon.ico">
@@ -17,32 +18,30 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>                        
       </button>
-      <a class="navbar-brand" href="#">Watches</a>
+      <a class="navbar-brand" href="#">Alpha Watches</a>
     </div>
-    <div class="collapse navbar-collapse" id="myNavbar" style="float:right";>
+    <div class="collapse navbar-collapse" id="myNavbar" style="float:right">
       <ul class="nav navbar-nav">
-        <li class="active"><a href="home">Home</a></li>
-        <li class="dropdown">
-          <a class="dropdown-toggle" data-toggle="dropdown" href="#">Categories<span class="caret"></span></a>
-          <ul class="dropdown-menu">
-            <li><a href="#">MEN</a></li>
-            <li><a href="#">WOMEN</a></li>
-          </ul>
-        </li>
-        <li><a href="contactus">contactus</a></li>
-        <li><a href="aboutus">aboutus</a></li>
+        <li class="active"><a href="home">HOME</a></li>
+        <li><a href="contactus">CONTACTUS</a></li>
+        <li><a href="aboutus">ABOUTUS</a></li>
         <li><a href="addcate">CATEGORY</a></li>
         <li><a href="addsupp">SUPPLIER</a></li>
         <li><a href="addpro">PRODUCT</a></li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
-        <li><a href="signup"><span class="glyphicon glyphicon-user"></span> signup</a></li>
-        <li><a href="login"><span class="glyphicon glyphicon-log-in"></span> login</a></li>
+ 
+        <li><a href="signup"><span class="glyphicon glyphicon-user"></span> SIGNUP</a></li>
+        <li><a href=""><span>Welcome</span>$(sessionScope.userName)  !</a></li>
+        <c:if test=$(sessionScope.userName!=null)>
+        <li><a href="login"><span class="glyphicon glyphicon-log-in"></span> LOGIN</a></li>
+        </c:if>
+          <c:if test=$(sessionScope.userName==null)>
+         <li><a href="login"><span class="glyphicon glyphicon-log-in"></span> logout</a></li>
+        </c:if>
       </ul>
     </div>
   </div>
 </nav>
-  
-
-</body>
+  </body>
 </html>

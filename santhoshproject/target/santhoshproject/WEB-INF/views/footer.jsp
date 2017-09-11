@@ -1,6 +1,6 @@
   <style>
 footer{
-   background-color: #424558;
+   background-color: #003366;
     position: fixed;
     bottom: 0;
     left: 0;

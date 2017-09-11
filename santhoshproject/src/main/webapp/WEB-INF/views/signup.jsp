@@ -41,7 +41,9 @@ input.upload {
 }
 </style>
 
+<div style="margin-bottom: -15pt">
 <jsp:include page="header.jsp"></jsp:include>
+</div>
 	<div class="container">
 	<div class="row">
     <div class="col-md-8">

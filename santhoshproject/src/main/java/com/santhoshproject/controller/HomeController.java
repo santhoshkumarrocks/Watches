@@ -5,6 +5,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,17 +40,18 @@ public class HomeController {
 	productdao pd;
 
 	@RequestMapping(value = {"/","/home"})
-	String indexPage() {
+	String indexPage(HttpSession session) 
+	{
 		return "index";
 	}
 
 	@RequestMapping("/aboutus")
-	String aboutusPage() {
+	String aboutusPage(HttpSession session) {
 		return "aboutus";
 	}
 
 	@RequestMapping("/contactus")
-	String contactusPage() {
+	String contactusPage(HttpSession session) {
 		return "contactus";
 	}
 
@@ -60,7 +62,7 @@ public class HomeController {
 	}
 
 	@RequestMapping("/getuser")
-	String getuser(@Valid @ModelAttribute("regmodel") Register u, BindingResult br, Model m) {
+	String getuser(@Valid @ModelAttribute("regmodel") Register u, BindingResult br, Model m,HttpSession session) {
 
 		if (br.hasErrors()) {
 			m.addAttribute("regmodel", u);
@@ -80,12 +82,12 @@ public class HomeController {
 	}
 
 	@RequestMapping("/login")
-	String loginPage() {
+	String loginPage(HttpSession session) {
 		return "login";
 	}
 
 	@RequestMapping("/addcate")
-	String addcate(Model m) {
+	String addcate(Model m,HttpSession session) {
 		m.addAttribute("category", new category());
 		m.addAttribute("cg", cd.showall());
 		m.addAttribute("check",true);
@@ -93,7 +95,7 @@ public class HomeController {
 	}
 
 	@RequestMapping("/getcategory")
-	String getcategory(@Valid @ModelAttribute("category") category c, BindingResult br, Model m) {
+	String getcategory(@Valid @ModelAttribute("category") category c, BindingResult br, Model m,HttpSession session) {
 		if (br.hasErrors()) {
 			System.out.println("error because of model");
 			System.out.println(br.getAllErrors());
@@ -110,7 +112,7 @@ public class HomeController {
 		}
 	}
 	@RequestMapping("/updcat")
-	String updcat(@Valid @ModelAttribute("category") category c, BindingResult br, Model m) {
+	String updcat(@Valid @ModelAttribute("category") category c, BindingResult br, Model m,HttpSession session) {
 		if (br.hasErrors()) 
 		{
 			System.out.println("error because of model");
@@ -134,7 +136,7 @@ public class HomeController {
 		
 
 	@RequestMapping("/addsupp")
-	String addsupp(Model m) {
+	String addsupp(Model m,HttpSession session) {
 		m.addAttribute("supplier", new supplier());
 		m.addAttribute("cz", sd.showall());
 		m.addAttribute("check",true);
@@ -142,7 +144,7 @@ public class HomeController {
 	}
 
 	@RequestMapping("/getsupplier")
-	String getsupplier(@Valid @ModelAttribute("supplier") supplier s, BindingResult br, Model m) {
+	String getsupplier(@Valid @ModelAttribute("supplier") supplier s, BindingResult br, Model m,HttpSession session) {
 		if (br.hasErrors()) {
 			System.out.println("error because of model");
 			System.out.println(br.getAllErrors());
@@ -159,7 +161,7 @@ public class HomeController {
 		}
 	}
 	@RequestMapping("/updsupp")
-	String updsuppr(@Valid @ModelAttribute("supplier") supplier s, BindingResult br, Model m) {
+	String updsuppr(@Valid @ModelAttribute("supplier") supplier s, BindingResult br, Model m,HttpSession session) {
 		if (br.hasErrors()) {
 			System.out.println("error because of model");
 			System.out.println(br.getAllErrors());
@@ -177,7 +179,7 @@ public class HomeController {
 	}
 
 	@RequestMapping("/addpro")
-	String addpro(Model m) {
+	String addpro(Model m,HttpSession session) {
 		m.addAttribute("product", new product());
 		m.addAttribute("cv", pd.showall());
 		m.addAttribute("check",true);
@@ -185,7 +187,7 @@ public class HomeController {
 	}
 
 	@RequestMapping("/getproduct")
-	String getproduct(@Valid @ModelAttribute("product") product p, BindingResult br, Model m)throws Exception {
+	String getproduct(@Valid @ModelAttribute("product") product p, BindingResult br, Model m,HttpSession session)throws Exception {
 		if (br.hasErrors()) {
 			System.out.println("error because of model");
 			System.out.println(br.getAllErrors());
@@ -220,7 +222,7 @@ public class HomeController {
 		}
 	}
 	@RequestMapping("/updpro")
-	String updpro(@Valid @ModelAttribute("product") product p, BindingResult br, Model m) {
+	String updpro(@Valid @ModelAttribute("product") product p, BindingResult br, Model m,HttpSession session) {
 		if (br.hasErrors()) {
 			System.out.println("error because of model");
 			System.out.println(br.getAllErrors());
@@ -238,14 +240,14 @@ public class HomeController {
 	}
 	
 	@RequestMapping("/delcat/{cid}")
-	String delcat(@PathVariable("cid") int id)
+	String delcat(@PathVariable("cid") int id,HttpSession session)
 	{
 		cd.deleteuser(id);
 		return "redirect:/addcate";
 	}
 
 	@RequestMapping("/editcat")
-	String editcat(@RequestParam("getcatid")int id,Model m)
+	String editcat(@RequestParam("getcatid")int id,Model m,HttpSession session)
 	{
 		m.addAttribute("category",cd.showone(id));
 		m.addAttribute("cg", cd.showall());
@@ -255,14 +257,14 @@ public class HomeController {
 	
 	
 	@RequestMapping("/delsupp/{sid}")
-	String delsupp(@PathVariable("sid") int id)
+	String delsupp(@PathVariable("sid") int id,HttpSession session)
 	{
 		sd.deleteuser(id);
 		return "redirect:/addsupp";
 	}
 
 	@RequestMapping("/editsupp")
-	String editsupp(@RequestParam("getsuppid")int id,Model m)
+	String editsupp(@RequestParam("getsuppid")int id,Model m,HttpSession session)
 	{
 		m.addAttribute("supplier",sd.showone(id));
 		m.addAttribute("cz", sd.showall());
@@ -272,14 +274,14 @@ public class HomeController {
 	
 	
 	@RequestMapping("/delpro/{pid}")
-	String delpro(@PathVariable("pid") int id)
+	String delpro(@PathVariable("pid") int id,HttpSession session)
 	{
 		pd.deleteuser(id);
 		return "redirect:/addpro";
 	}
 
 	@RequestMapping("/editpro")
-	String editpro(@RequestParam("getproid")int id,Model m)
+	String editpro(@RequestParam("getproid")int id,Model m,HttpSession session)
 	{
 		m.addAttribute("product",pd.showone(id));
 		m.addAttribute("cv", pd.showall());
@@ -287,10 +289,12 @@ public class HomeController {
 		return "addpro";
 	}
 	@RequestMapping(value={"/signin"},method=RequestMethod.GET)
-	public String loginController(@RequestParam("mail") String email,@RequestParam("upass") String pass)
+	public String loginController(@RequestParam("mail") String email,@RequestParam("upass") String pass,HttpSession session)
 	{
 		System.out.println(email);
 		System.out.println(pass);
+		String userName=null,userRole=null;
+		boolean regloggedin=false;
 		List<Register> allUser=rd.showall();
 		boolean userExist=false;
 		for(Register reg:allUser)
@@ -298,17 +302,31 @@ public class HomeController {
 			if(reg.getEmail().equals(email)&&reg.getPassword().equals(pass))
 			{
 				userExist=true;
+				userName=reg.getName();
+				userRole=reg.getRole();
 			}
 
 		}		
 		if(userExist)
 		{
 			System.out.println("Welcome Mr./Mrs. "+email);
+			session.setAttribute("userName",userName);
+			session.setAttribute("userRole",userRole);
+			session.setAttribute("userin",regloggedin);
 			return "index";
 		}
 		else
 		{
 			return "login";
 		}
-	}
-}
+		}
+			
+		@RequestMapping("/logout")
+		public String logout(HttpSession session)
+		{
+			session.invalidate();
+			return "redirect:/";
+		}
+		}
+	
+

@@ -25,7 +25,9 @@
 	border-radius: 50px;
 }
 </style>
+<div style="margin-bottom: -15pt">
 <jsp:include page="header.jsp"></jsp:include>
+</div>
 <body style="background-color: white";>
 <c:if test="${check}">
 	<form:form  modelAttribute="supplier" action="getsupplier" method="post"
@@ -163,6 +165,7 @@
 			</table>
 		</div>
 	</div>
+	<br>
 	<br>
 	<br>
 	<jsp:include page="footer.jsp"></jsp:include>
