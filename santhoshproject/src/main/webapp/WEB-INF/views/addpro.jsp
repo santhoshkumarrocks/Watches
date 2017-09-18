@@ -239,7 +239,7 @@
 					</tr>
 				</thead>
 				<tbody>
-					<c:forEach items="${cv}" var="ci">
+					<c:forEach items="${allproducts}" var="ci">
 						<tr>
 							<td class""><img style="vertical-align: bottom;" width="120" height="60" src="resources/productimages/${ci.getId()}.jpg"/></td>
        						 <td>${ci.getId()}</td>

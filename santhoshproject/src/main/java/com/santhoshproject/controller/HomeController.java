@@ -19,11 +19,13 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.santhoshproject.dao.CartDAO;
 import com.santhoshproject.dao.Registerdao;
 import com.santhoshproject.dao.categorydao;
 import com.santhoshproject.dao.productdao;
 import com.santhoshproject.dao.supplierdao;
 import com.santhoshproject.model.Register;
+import com.santhoshproject.model.cart;
 import com.santhoshproject.model.category;
 import com.santhoshproject.model.product;
 import com.santhoshproject.model.supplier;
@@ -38,6 +40,9 @@ public class HomeController {
 	supplierdao sd;
 	@Autowired
 	productdao pd;
+	@Autowired
+	CartDAO c;
+	
 
 	@RequestMapping(value = {"/","/home"})
 	String indexPage(HttpSession session) 
@@ -181,7 +186,7 @@ public class HomeController {
 	@RequestMapping("/addpro")
 	String addpro(Model m,HttpSession session) {
 		m.addAttribute("product", new product());
-		m.addAttribute("cv", pd.showall());
+		m.addAttribute("allproducts", pd.showall());
 		m.addAttribute("check",true);
 		return "addpro";
 	}
@@ -327,6 +332,222 @@ public class HomeController {
 			session.invalidate();
 			return "redirect:/";
 		}
+		@RequestMapping("/allpro")
+		String allpropage(Model p,HttpSession session)
+		{
+			System.out.println(pd.showall());
+			p.addAttribute("promodel",new product());
+			p.addAttribute("protable",pd.showall());
+			p.addAttribute("check",true);
+			return "allpro";
+			
 		}
+		
+		@RequestMapping("/singlepro")
+		public String sin(@RequestParam("id") int prodid,Model p,HttpSession session)
+		{
+			p.addAttribute("promodel",new product());
+			p.addAttribute("ci" ,pd.showone(prodid));
+			return "singlepro";
+		}
+		
+		@RequestMapping(value={"/addtocart/{getprodid}"})
+		public String insertProdttoCart(@PathVariable("getprodid") int ProdId,HttpSession session)
+		{
+			try
+			{
+				product single=pd.showone(ProdId);
+					if(single.getId()==ProdId)
+					{
+						String username=(String) session.getAttribute("userName");
+						System.out.println(username);
+						List<cart> singleuser=(c.singleUserCart(username));
+						for(cart c:singleuser)
+						{
+							System.out.println(c.getCartid()+"     "+c.getProductname());
+						}
+							
+						List<cart> singleprodfromcart=c.singleprodfromcart(single.getName(),username);
+						if(singleprodfromcart.isEmpty())
+						{
+							cart cart=new cart();
+							cart.setCartid((String)session.getAttribute("userName"));
+							cart.setProductid(single.getId());
+							cart.setPrice((int)single.getPrice());
+							cart.setQuantity(1);
+							cart.setProductname(single.getName());
+							cart.setTotal(cart.getQuantity()*cart.getPrice());
+							c.insertproductIntoCart(cart);
+						}
+						else
+						{
+							singleprodfromcart.get(0).setQuantity(singleprodfromcart.get(0).getQuantity()+1);
+							singleprodfromcart.get(0).setTotal(singleprodfromcart.get(0).getPrice()*singleprodfromcart.get(0).getQuantity());
+							c.updateproducttocart(singleprodfromcart.get(0));
+							
+						}
+					}
+				
+			}
+			catch(Exception e)
+			{
+				
+			}
+			
+			return "redirect:/allpro";
+		}
+
+
+
+		@RequestMapping("/cartpage")
+		String cartPage(HttpSession session,Model m)
+		{
+			
+			String username=(String) session.getAttribute("userName");
+			List<cart> singleuser=(c.singleUserCart(username));
+			m.addAttribute("carobjstring", singleuser);
+			return "cartpage";
+		}
+
+		@RequestMapping("/remove/{prodid}")
+		String removesup(@PathVariable("prodid")int id)
+		{
+			if(c.deletecartproduct(id))
+			{
+				return "redirect:/cartpage";		
+			}
+			else
+			{
+				return "redirect:/cartpage";		
+			}
+		}
+
+		@RequestMapping("/mycart")
+		public String cartpage(Model m,HttpSession session)
+		{
+			int grandtotal=0;
+			List<cart> temp=c.singleUserCart((String)session.getAttribute("userName"));
+			for(cart ca:temp)
+			{
+				grandtotal=grandtotal+(int)ca.getTotal();
+			}
+			m.addAttribute("protable",c.singleUserCart((String)session.getAttribute("userName")) );
+			m.addAttribute("total", grandtotal);
+			
+			return "cartpage";
+		}
+
+		@RequestMapping("/delcartprod/{pid}")
+		String delcartpro(@PathVariable("pid") int id,HttpSession session)
+		{
+			c.deletecartproduct(id);
+			session.isNew();
+			return "redirect:/mycart";
+		}
+		@RequestMapping("/inccart")
+		public String inccartprod(@RequestParam("getprodid") int ProdId,HttpSession session)
+		{
+			try
+			{
+				product single=pd.showone(ProdId);
+					if(single.getId()==ProdId)
+					{
+						String username=(String) session.getAttribute("userName");
+						System.out.println(username);
+						List<cart> singleuser=(c.singleUserCart(username));
+						for(cart c:singleuser)
+						{
+							System.out.println(c.getCartid()+"     "+c.getProductname());
+						}
+							
+						List<cart> singleprodfromcart=c.singleprodfromcart(single.getName(),username);
+						session.removeAttribute("prodtotal");
+						if(singleprodfromcart.isEmpty())
+						{
+							cart cart=new cart();
+							cart.setCartid((String)session.getAttribute("userName"));
+							cart.setProductid(single.getId());
+							cart.setPrice((int)single.getPrice());
+							cart.setQuantity(1);
+							cart.setProductname(single.getName());
+							cart.setTotal(cart.getQuantity()*cart.getPrice());
+							c.insertproductIntoCart(cart);
+							
+							session.setAttribute("prodtotal", c.singleUserCart((String)session.getAttribute("userName")).size());
+						}
+						else
+						{
+							singleprodfromcart.get(0).setQuantity(singleprodfromcart.get(0).getQuantity()+1);
+							singleprodfromcart.get(0).setTotal(singleprodfromcart.get(0).getPrice()*singleprodfromcart.get(0).getQuantity());
+							c.updateproducttocart(singleprodfromcart.get(0));
+							
+							session.setAttribute("prodtotal", c.singleUserCart((String)session.getAttribute("userName")).size());
+							
+						}
+					}
+				
+			}
+			catch(Exception e)
+			{
+				
+			}
+			
+			return "redirect:/mycart";
+		}
+
+			@RequestMapping("/redcart")
+		public String reducacart(@RequestParam("getprodid") int ProdId,HttpSession session)
+		{
+			try
+			{
+				product single=pd.showone(ProdId);
+					if(single.getId()==ProdId)
+					{
+						String username=(String) session.getAttribute("userName");
+						System.out.println(username);
+						List<cart> singleuser=(c.singleUserCart(username));
+						for(cart c:singleuser)
+						{
+							System.out.println(c.getCartid()+"     "+c.getProductname());
+						}
+							
+						List<cart> singleprodfromcart=c.singleprodfromcart(single.getName(),username);
+						
+						
+						if(!singleprodfromcart.isEmpty())
+						{
+							
+							
+							if(singleprodfromcart.get(0).getQuantity()>1)
+							{
+								singleprodfromcart.get(0).setQuantity(singleprodfromcart.get(0).getQuantity()-1);
+								singleprodfromcart.get(0).setTotal(singleprodfromcart.get(0).getPrice()*singleprodfromcart.get(0).getQuantity());
+								c.updateproducttocart(singleprodfromcart.get(0));
+								session.removeAttribute("prodtotal");
+								session.setAttribute("prodtotal", c.singleUserCart((String)session.getAttribute("userName")).size());
+							}
+							
+						}
+					}
+				
+			}
+			catch(Exception e)
+			{
+				
+			}
+			
+			return "redirect:/mycart";
+		}
+			
+			
+			@RequestMapping("/checkout")
+			public String checkout()
+			{
+				return "thanku";
+			}
+
+		
+		}
+
 	
 

@@ -24,30 +24,30 @@
       <a class="navbar-brand" href="#">Alpha Watches</a>
     </div>
     <div class="collapse navbar-collapse" id="myNavbar">
-      <ul class="nav navbar-nav">
-        <li class="active"><a href="home">Home</a></li>
-     
-        <li><a href="contactus">CONTACTUS</a></li>
-        <li><a href="aboutus">ABOUTUS</a></li>
-        
+      <ul class="nav navbar-nav">   
       </ul>
       <ul class="nav navbar-nav navbar-right">
-      <li><a href="allprod">PRODUCTS</a></li>
+      <li class="active"><a href="home">HOME</a></li>
+     <li><a href="contactus">CONTACTUS</a></li>
+        <li><a href="aboutus">ABOUTUS</a></li>
+      <li><a href="allpro">PRODUCTS</a></li>
            <c:if test="${sessionScope.userName==null }">
            
         <li><a href="signup"><span class="glyphicon glyphicon-user"></span> SIGNUP</a></li>
         <li><a href="login"><span class="glyphicon glyphicon-user"></span>LOGIN</a></li>
+        
         </c:if>
         <c:if test="${sessionScope.userName!=null }">
         <c:if test="${sessionScope.userRole=='ROLE_ADMIN'}">
        <li><a href="addpro">PRODUCT</a></li>
           <li><a href="addcate">CATEGORY</a></li>
            <li><a href="addsupp">SUPPLIER</a></li>
+           
            </c:if>
            <c:if test="${sessionScope.userRole=='ROLE_USER'}">
            </c:if>
-        <li><a href="" style="text-transform: capitalize;"><span>Welcome   !</span>${sessionScope.userName}</a></li>
-        
+        <li><a href="" style="text-transform: capitalize;"><span>Welcome </span>${sessionScope.userName}</a></li>
+        <li><a href="mycart">CART</a></li>
         <li><a href="logout"><span class="glyphicon glyphicon-user"></span> LOGOUT</a></li>
         </c:if>
       </ul>
